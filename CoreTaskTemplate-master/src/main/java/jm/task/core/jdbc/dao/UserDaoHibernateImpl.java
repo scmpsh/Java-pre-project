@@ -1,12 +1,16 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.Util;
 
+import javax.security.auth.login.Configuration;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    public UserDaoHibernateImpl() {
+    Configuration configuration;
 
+    public UserDaoHibernateImpl() {
+//        this.configuration = Util.getConfiguration();
     }
 
 

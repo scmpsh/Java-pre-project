@@ -7,12 +7,6 @@ import java.sql.SQLException;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private Connection connection;
-
-    public Util() {
-        this.connection = getConnection();
-    }
-
     public Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());

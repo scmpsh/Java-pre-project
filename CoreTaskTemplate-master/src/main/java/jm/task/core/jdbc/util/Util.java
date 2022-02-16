@@ -16,8 +16,8 @@ public class Util {
     public static Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/jshantay",
-                    "jshantay", "");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/webdb",
+                    "migalnikita", "");
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -29,8 +29,8 @@ public class Util {
         configuration.addAnnotatedClass(User.class);
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/jshantay");
-        configuration.setProperty("hibernate.connection.username", "jshantay");
+        configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/webdb");
+        configuration.setProperty("hibernate.connection.username", "migalnikita");
         configuration.setProperty("hibernate.connection.password", "");
 
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();

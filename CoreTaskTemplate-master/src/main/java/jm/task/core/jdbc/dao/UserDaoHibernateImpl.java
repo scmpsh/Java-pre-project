@@ -50,9 +50,8 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.createQuery("delete from User user where user.id=:param")
-                .setParameter("param", id)
-                .executeUpdate();
+        session.delete(session.get(String.valueOf(id), User.class));
+//        session.load();
         transaction.commit();
         session.close();
     }

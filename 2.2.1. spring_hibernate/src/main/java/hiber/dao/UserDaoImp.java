@@ -36,9 +36,4 @@ public class UserDaoImp implements UserDao {
                 .setParameter("series", series)
                 .uniqueResult();
     }
-
-    @Override
-    public Car getCarById(Long id) {
-        return (Car) sessionFactory.getCurrentSession().get(String.valueOf(id), Car.class);
-    }
 }

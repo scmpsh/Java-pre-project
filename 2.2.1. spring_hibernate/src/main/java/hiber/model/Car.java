@@ -16,15 +16,19 @@ public class Car {
     @Column(name = "series")
     private int series;
 
-    @OneToOne(mappedBy = "car")
-    private User user;
+    @Column(name = "doors")
+    private int doors;
+
+//    @OneToOne(mappedBy = "car")
+//    private User user;
 
     public Car() {
     }
 
-    public Car(String model, int series) {
+    public Car(String model, int series, int doors) {
         this.model = model;
         this.series = series;
+        this.doors = doors;
     }
 
     public Long getId() {
@@ -51,13 +55,21 @@ public class Car {
         this.series = series;
     }
 
-    public User getUser() {
-        return user;
+    public int getDoors() {
+        return doors;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDoors(int doors) {
+        this.doors = doors;
     }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Override
     public String toString() {

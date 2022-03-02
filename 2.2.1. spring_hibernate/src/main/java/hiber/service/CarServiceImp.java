@@ -28,4 +28,9 @@ public class CarServiceImp implements CarService {
     public List<Car> listCars() {
         return carDao.listCars();
     }
+
+    @Override
+    public List<Car> listCarsWithLimit(Integer count) {
+        return carDao.listCarsWithLimit(count);
+    }
 }

@@ -30,12 +30,8 @@ public class CarDaoImp implements CarDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Car> listCarsWithLimit(Integer count) {
-        if (count == null || count >= 5) {
-            return listCars();
-        } else {
-            return sessionFactory.getCurrentSession().createQuery("from Car")
-                    .setMaxResults(count)
-                    .getResultList();
-        }
+        return sessionFactory.getCurrentSession().createQuery("from Car")
+                .setMaxResults(count)
+                .getResultList();
     }
 }

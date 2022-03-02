@@ -31,6 +31,10 @@ public class CarServiceImp implements CarService {
 
     @Override
     public List<Car> listCarsWithLimit(Integer count) {
-        return carDao.listCarsWithLimit(count);
+        if (count == null || count >= 5) {
+            return listCars();
+        } else {
+            return carDao.listCarsWithLimit(count);
+        }
     }
 }

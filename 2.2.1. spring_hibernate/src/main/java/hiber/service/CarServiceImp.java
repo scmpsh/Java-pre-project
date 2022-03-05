@@ -1,8 +1,10 @@
 package hiber.service;
 
+import hiber.config.Prop;
 import hiber.dao.CarDao;
 import hiber.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,12 @@ import java.util.List;
 
 @Service
 public class CarServiceImp implements CarService {
+
+    @Value("${car.limit}")
+    private Integer limitCars;
+
+    @Autowired
+    private Prop prop;
 
     private final CarDao carDao;
 
@@ -31,7 +39,7 @@ public class CarServiceImp implements CarService {
 
     @Override
     public List<Car> listCarsWithLimit(Integer count) {
-        if (count == null || count >= 5) {
+        if (count == null || count >= prop.getLimit()) {
             return listCars();
         } else {
             return carDao.listCarsWithLimit(count);

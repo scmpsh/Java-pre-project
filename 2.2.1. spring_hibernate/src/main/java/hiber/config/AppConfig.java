@@ -2,7 +2,9 @@ package hiber.config;
 
 import hiber.model.Car;
 import hiber.model.User;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +28,23 @@ public class AppConfig {
     @Autowired
     private Environment env;
 
+    private Integer limitCars;
+
+    public Integer getLimitCars() {
+        return limitCars;
+    }
+
+    public void setLimitCars(Integer limitCars) {
+        this.limitCars = limitCars;
+    }
+
+
+    @Bean
+    @ConfigurationProperties(prefix = "car")
+    public Prop item() {
+        return new Prop();
+    }
+
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -46,7 +65,7 @@ public class AppConfig {
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(User.class, Car.class);
+        factoryBean.setAnnotatedClasses(User.class);
         return factoryBean;
     }
 

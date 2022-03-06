@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user">
+        <td>
+            <a th:text="${user.getId()}">Id</a>
+        </td>
+        <td>
+            <a th:text="${user.getName()}">Name</a>
+        </td>
+        <td>
+            <a th:text="${user.getSurname()}">Surname</a>
+        </td>
+        <td>
+            <a th:text="${user.getSurname()}">Email</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--<p th:text="${user.getId()}">VALUE</p>-->
+<!--<p th:text="${user.getName()}">VALUE</p>-->
+<!--<p th:text="${user.getSurname()}">VALUE</p>-->
+<!--<p th:text="${user.getEmail()}">VALUE</p>-->
+</body>
+</html>

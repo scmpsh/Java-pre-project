@@ -16,18 +16,44 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void addUser(User user) {
-        sessionFactory.getCurrentSession().save(user);
+    public void createUser(User user) {
+        sessionFactory.getCurrentSession()
+                .save(user);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession().createQuery("from User").getResultList();
+    public List<User> readUsers() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User")
+                .getResultList();
     }
 
     @Override
     public User getUserById(Long id) {
-        return (User) sessionFactory.getCurrentSession().get(String.valueOf(id), User.class);
+        return (User) sessionFactory.getCurrentSession()
+                .createQuery("from User user where user.id=:id")
+                .setParameter("id", id)
+                .uniqueResult();
+//        return (User) sessionFactory.getCurrentSession().get(String.valueOf(id), User.class);
+    }
+
+    @Override
+    public void updateUser(Long id, User updatedUser) {
+        User userToBeUpdate = getUserById(id);
+
+        userToBeUpdate.setName(updatedUser.getName());
+        userToBeUpdate.setSurname(updatedUser.getSurname());
+        userToBeUpdate.setEmail(updatedUser.getEmail());
+
+        sessionFactory.getCurrentSession().update(userToBeUpdate);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        sessionFactory.getCurrentSession().createQuery("delete User user where user.id=:id")
+                .setParameter("id", id)
+                .executeUpdate();
+//        sessionFactory.getCurrentSession().delete(String.valueOf(id), User.class);
     }
 }

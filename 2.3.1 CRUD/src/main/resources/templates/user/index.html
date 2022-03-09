@@ -8,16 +8,22 @@
 <table>
     <thead>
     <tr>
-        <th>User name</th>
+        <th>Name</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
         <td>
-            <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
+            <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}"></a>
         </td>
     </tr>
     </tbody>
 </table>
+
+<br/>
+<hr/>
+
+<a href="/users/new">Create new user</a>
+
 </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+ID: <a th:text="${user.getId()}">Id</a><br>
+Username: <a th:text="${user.getUsername()}">Username</a><br>
+Password: <a th:text="${user.getPassword()}">Password</a><br>
+Roles: <a th:text="${user.getRoles()}">Roles</a><br>
+<form th:href="@{/users/{id}/edit(id=${user.getId()})}" method="get">
+    <input type="submit" value="Edit">
+</form>
+<form th:action="@{/admin/new}" th:method="get">
+    <input type="submit" value="New user"/>
+</form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>

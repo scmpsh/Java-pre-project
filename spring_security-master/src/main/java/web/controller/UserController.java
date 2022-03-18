@@ -2,15 +2,9 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -22,25 +16,50 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-		List<String> messages = new ArrayList<>();
-		messages.add("Hello!");
-		messages.add("I'm Spring MVC-SECURITY application");
-		messages.add("5.2.0 version by sep'19 ");
-		model.addAttribute("messages", messages);
-		return "pages/hello";
-	}
-
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @GetMapping("login")
     public String loginPage() {
         return "pages/login";
     }
 
-	@RequestMapping(value = "{user}", method = RequestMethod.GET)
-	public String showUser(@PathVariable("user") User user, Model model) {
-		model.addAttribute("user", userService.getUserById(user.getId()));
-		return null;
+	@GetMapping("user")
+	public String userPage(Model model) {
+		model.addAttribute("user", userService.getUserByName("admin"));
+		return "pages/user";
 	}
 
+	@GetMapping("admin")
+	public String adminPage(Model model) {
+		model.addAttribute("user", userService.getUserByName("admin"));
+		return "pages/admin";
+	}
+
+	@GetMapping("/admin/new")
+	public String addUser(Model model) {
+		model.addAttribute("user", new User());
+		return "pages/new";
+	}
+
+	@PostMapping
+	public String createUser(@ModelAttribute("user") User user) {
+		userService.createUser(user);
+		return "redirect:/admin";
+	}
+
+	@GetMapping("/admin/{id}/edit")
+	public String editUser(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("user", userService.getUserById(id));
+		return "user/edit";
+	}
+
+	@PatchMapping("/{id}")
+	public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+		userService.updateUser(id, user);
+		return "redirect:/admin";
+	}
+
+	@DeleteMapping("/{id}")
+	public String deleteUser(@PathVariable("id") Long id) {
+		userService.deleteUser(id);
+		return "redirect:/admin";
+	}
 }

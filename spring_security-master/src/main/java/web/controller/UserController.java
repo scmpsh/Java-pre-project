@@ -39,43 +39,45 @@ public class UserController {
 		return "pages/admin";
 	}
 
-	@GetMapping("/admin/new-user")
+	@GetMapping("admin/new-user")
 	public String addUser(Model model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("roleList", userService.readAllRoles());
 		return "pages/newUser";
 	}
 
-	@PostMapping("/admin/new-user")
+	@PostMapping("admin/new-user")
 	public String createUser(@ModelAttribute("user") User user) {
 		userService.createUser(user);
 		return "redirect:/admin";
 	}
 
-	@GetMapping("/admin/new-role")
-	public String addRole(Model model) {
-		model.addAttribute("role", new Role());
-		return "pages/newRole";
-	}
+//	@GetMapping("admin/new-role")
+//	public String addRole(Model model) {
+//		model.addAttribute("role", new Role());
+//		return "pages/newRole";
+//	}
+//
+//	@PostMapping("admin/new-role")
+//	public String createRole(@ModelAttribute("role") Role role) {
+//		roleService.createRole(role);
+//		return "redirect:/admin";
+//	}
 
-	@PostMapping("/admin/new-role")
-	public String createRole(@ModelAttribute("role") Role role) {
-		roleService.createRole(role);
-		return "redirect:/admin";
-	}
-
-	@GetMapping("/admin/{name}")
+	@GetMapping("admin/{name}")
 	public String editUser(@PathVariable("name") String name, Model model) {
 		model.addAttribute("user", userService.getUserByName(name));
+		model.addAttribute("roleList", userService.readAllRoles());
 		return "pages/edit";
 	}
 
-	@PatchMapping("/admin")
+	@PatchMapping("admin")
 	public String updateUser(@ModelAttribute("user") User user) {
 		userService.updateUser(user);
 		return "redirect:/admin";
 	}
 
-	@DeleteMapping("/admin")
+	@DeleteMapping("admin")
 	public String deleteUser(Principal principal) {
 		userService.deleteUser(principal.getName());
 		return "redirect:/admin";

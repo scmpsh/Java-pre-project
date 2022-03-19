@@ -12,8 +12,11 @@
     <label for="password">Enter surname:</label>
     <input type="text" th:field="*{password}" id="password">
     <br/>
-    <label for="roles">Enter roles:</label>
-    <input type="text" th:field="*{roles}" id="roles">
+    <label>Choose roles:</label>
+    <th:block th:each="role: ${roleList}">
+        <input type="checkbox" th:field="*{roles}"
+               th:text="${role}" th:value="${role}"/>
+    </th:block>
     <br/>
     <input type="submit" value="Update user">
 </form>

@@ -2,6 +2,7 @@ package web.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import web.model.Role;
 import web.model.User;
 
 import java.util.*;
@@ -54,6 +55,14 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("name", name)
                 .executeUpdate();
 //        sessionFactory.getCurrentSession().delete(String.valueOf(id), User.class);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Role> readAllRoles() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("select distinct name.name from Role role")
+                .getResultList();
     }
 }
 

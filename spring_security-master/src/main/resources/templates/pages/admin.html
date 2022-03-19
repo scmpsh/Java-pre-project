@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
@@ -10,22 +10,37 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Password</th>
+        <th>Roles</th>
+        <th>Edit</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${user}">
         <td>
-            <a th:href="@{/admin/{name}(name=${user.getName()})}" th:text="${user.getName()}"></a>
+            <a th:text="${user.getName()}"></a>
+        </td>
+        <td>
+            <a th:text="${user.getPassword()}"></a>
+        </td>
+        <td>
+            <a th:text="${user.getRoles()}"></a>
+        </td>
+        <td>
+            <a th:href="@{/admin/{name}(name=${user.getName()})}" th:text="Edit"></a>
         </td>
     </tr>
     </tbody>
 </table>
+<br>
 <form th:action="@{/admin/new-user}" th:method="get">
     <input type="submit" value="New user"/>
 </form>
+<br>
 <form th:action="@{/admin/new-role}" th:method="get">
     <input type="submit" value="New role"/>
 </form>
+<br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout"/>
 </form>

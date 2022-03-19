@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add New Role</title>
@@ -7,11 +7,11 @@
 <body>
 <form th:method="POST" th:action="@{/admin}" th:object="${role}">
     <label for="role">Enter name:</label>
-    <input type="text" th:field="*{role}" id="role">
+    <input type="text" th:field="*{name}" id="role">
     <input type="submit" value="Add role">
 </form>
 <br>
-<form th:action="@{/logout}" method="post">
+<form th:action="@{/logout}" th:method="post">
     <input type="submit" value="Logout"/>
 </form>
 </body>

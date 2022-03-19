@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/admin}" th:object="${user}">
+    <label for="name">Enter name:</label>
+    <input type="text" th:field="*{name}" id="name">
+    <br/>
+    <label for="password">Enter surname:</label>
+    <input type="text" th:field="*{password}" id="password">
+    <br/>
+    <label for="roles">Enter roles:</label>
+    <input type="text" th:field="*{roles}" id="roles">
+    <br/>
+    <input type="submit" value="Update user">
+</form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title></title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div>-->
+<!--    <th:block th:each="msg : ${messages}">-->
+<!--        <h1 th:text="${msg}"></h1>-->
+<!--    </th:block>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

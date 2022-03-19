@@ -2,18 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add new user</title>
+    <title>Add New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/login}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
     <label for="name">Enter name:</label>
     <input type="text" th:field="*{name}" id="name">
     <br/>
     <label for="password">Enter password:</label>
     <input type="text" th:field="*{password}" id="password">
     <br/>
-    <label for="role">Enter role:</label>
-    <input type="text" th:field="*{roles}" id="role">
+    <th:block th:each="role : ${roles}">
+        <input type="checkbox" name="role" th:value="role.id"/>
+        <label th:text="${role.authority}">Enter role:</label>
+    </th:block>
+    <!--    <input type="text" th:field="*{roles}" id="role">-->
     <br/>
     <input type="submit" value="Add user">
 </form>

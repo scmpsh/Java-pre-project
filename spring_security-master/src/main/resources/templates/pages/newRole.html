@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Role</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin}" th:object="${role}">
+    <label for="role">Enter name:</label>
+    <input type="text" th:field="*{role}" id="role">
+    <input type="submit" value="Add role">
+</form>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>

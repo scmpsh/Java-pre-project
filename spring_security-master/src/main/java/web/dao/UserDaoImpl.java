@@ -1,7 +1,7 @@
 package web.dao;
 
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import web.model.Role;
 import web.model.User;
 
 import java.util.*;
@@ -9,65 +9,51 @@ import java.util.*;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-//    private final Map<String, User> userMap = Collections.singletonMap("user",
-//            new User(1L, "user", "user", Collections.singleton(new Role(1L, "ROLE_ADMIN")))); // name - уникальное значение, выступает в качестве ключа Map
+    private final SessionFactory sessionFactory;
 
-    private final Map<String, User> userMap = new HashMap<>();
-    private final Set<Role> roleSet = new HashSet<>();
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public User getUserByName(String name) {
-        roleSet.add(new Role(1L, "ROLE_USER"));
-        roleSet.add(new Role(2L, "ROLE_ADMIN"));
-        roleSet.add(new Role(3L, "ROLE_STUDENT"));
-        userMap.put("user", new User(1L, "user", "user", roleSet));
-        userMap.put("admin", new User(2L, "admin", "admin", Collections.singleton((Role) roleSet.toArray()[1])));
-        userMap.put("test", new User(3L, "test", "test", Collections.singleton((Role) roleSet.toArray()[0])));
-        userMap.put("none", new User(4L, "none", "none", Collections.singleton((Role) roleSet.toArray()[2])));
-        if (!userMap.containsKey(name)) {
-            return null;
-        }
-
-        return userMap.get(name);
+        return (User) sessionFactory.getCurrentSession()
+                .createQuery("from User user where user.name=:name")
+                .setParameter("name", name)
+                .uniqueResult();
     }
 
     @Override
     public void createUser(User user) {
-        userMap.put(user.getUsername(), user);
+        sessionFactory.getCurrentSession()
+                .save(user);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> readUsers() {
-        return new ArrayList<>(userMap.values());
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User")
+                .getResultList();
     }
 
     @Override
-    public User getUserById(Long id) {
-        for (User user : userMap.values()) {
-            if (user.getId().equals(id)) {
-                return user;
-            }
-        }
-        return null;
+    public void updateUser(User updatedUser) {
+        User userToBeUpdate = getUserByName(updatedUser.getName());
+
+        userToBeUpdate.setName(updatedUser.getName());
+        userToBeUpdate.setPassword(updatedUser.getPassword());
+        userToBeUpdate.setRoles(updatedUser.getRoles());
+
+        sessionFactory.getCurrentSession().update(userToBeUpdate);
     }
 
     @Override
-    public void updateUser(Long id, User user) {
-        for (User oldUser : userMap.values()) {
-            if (oldUser.getId().equals(id)) {
-                userMap.remove(oldUser.getUsername());
-                userMap.put(user.getUsername(), user);
-            }
-        }
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        for (User user : userMap.values()) {
-            if (user.getId().equals(id)) {
-                userMap.remove(user.getUsername());
-            }
-        }
+    public void deleteUser(String name) {
+        sessionFactory.getCurrentSession().createQuery("delete User user where user.name=:name")
+                .setParameter("name", name)
+                .executeUpdate();
+//        sessionFactory.getCurrentSession().delete(String.valueOf(id), User.class);
     }
 }
 

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -22,7 +21,6 @@ import java.util.Properties;
 @PropertySource("classpath:app.properties")
 @EnableTransactionManagement
 @EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
-@ComponentScan(basePackages = "web")
 public class AppConfig {
 
     @Value("${db.driver}")

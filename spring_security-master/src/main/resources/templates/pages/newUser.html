@@ -5,18 +5,12 @@
     <title>Add New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/new-user}" th:object="${user}">
     <label for="name">Enter name:</label>
     <input type="text" th:field="*{name}" id="name">
     <br/>
     <label for="password">Enter password:</label>
     <input type="text" th:field="*{password}" id="password">
-    <br/>
-    <label>Choose roles:</label>
-    <th:block th:each="role: ${roleList}">
-        <input type="checkbox" th:field="*{roles}"
-               th:text="${role}" th:value="${role}"/>
-    </th:block>
     <br/>
     <input type="submit" value="Add user">
 </form>

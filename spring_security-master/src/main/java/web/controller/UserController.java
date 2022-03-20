@@ -35,14 +35,13 @@ public class UserController {
 
 	@GetMapping("admin")
 	public String adminPage(Model model) {
-		model.addAttribute("user", userService.readUsers());
+		model.addAttribute("users", userService.readUsers());
 		return "pages/admin";
 	}
 
 	@GetMapping("admin/new-user")
 	public String addUser(Model model) {
 		model.addAttribute("user", new User());
-		model.addAttribute("roleList", userService.readAllRoles());
 		return "pages/newUser";
 	}
 
@@ -52,34 +51,34 @@ public class UserController {
 		return "redirect:/admin";
 	}
 
-//	@GetMapping("admin/new-role")
-//	public String addRole(Model model) {
-//		model.addAttribute("role", new Role());
-//		return "pages/newRole";
-//	}
-//
-//	@PostMapping("admin/new-role")
-//	public String createRole(@ModelAttribute("role") Role role) {
-//		roleService.createRole(role);
-//		return "redirect:/admin";
-//	}
-
-	@GetMapping("admin/{name}")
-	public String editUser(@PathVariable("name") String name, Model model) {
-		model.addAttribute("user", userService.getUserByName(name));
-		model.addAttribute("roleList", userService.readAllRoles());
-		return "pages/edit";
+	@GetMapping("admin/new-role")
+	public String addRole(Model model) {
+		model.addAttribute("role", new Role());
+		return "pages/newRole";
 	}
 
-	@PatchMapping("admin")
-	public String updateUser(@ModelAttribute("user") User user) {
-		userService.updateUser(user);
+	@PostMapping("admin/new-role")
+	public String createRole(@ModelAttribute("role") Role role) {
+		roleService.createRole(role);
 		return "redirect:/admin";
 	}
 
-	@DeleteMapping("admin")
-	public String deleteUser(Principal principal) {
-		userService.deleteUser(principal.getName());
+	@GetMapping("admin/edit/{name}")
+	public String editUser(@PathVariable("name") String name, Model model) {
+		model.addAttribute("user", userService.getUserByName(name));
+		model.addAttribute("roleList", roleService.readAllRole());
+		return "pages/edit";
+	}
+
+	@PatchMapping("admin/edit/{name}")
+	public String updateUser(@PathVariable("name") String name, @ModelAttribute("user") User user) {
+		userService.updateUser(name, user);
+		return "redirect:/admin";
+	}
+
+	@DeleteMapping("admin/delete/{name}")
+	public String deleteUser(@PathVariable("name") String name) {
+		userService.deleteUser(name);
 		return "redirect:/admin";
 	}
 }

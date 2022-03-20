@@ -5,7 +5,7 @@
     <title>Add New Role</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin}" th:object="${role}">
+<form th:method="POST" th:action="@{/admin/new-role}" th:object="${role}">
     <label for="role">Enter name:</label>
     <input type="text" th:field="*{name}" id="role">
     <input type="submit" value="Add role">

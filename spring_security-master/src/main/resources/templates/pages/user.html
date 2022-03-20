@@ -6,10 +6,24 @@
     <title>User</title>
 </head>
 <body>
-ID: <a th:text="${user.getId()}">Id</a><br>
-Username: <a th:text="${user.getUsername()}">Username</a><br>
-Password: <a th:text="${user.getPassword()}">Password</a><br>
-Roles: <a th:text="${user.getRoles()}">Roles</a><br>
+<table>
+    <thead>
+    <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>User Password</th>
+        <th>User Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.id}">User ID</td>
+        <td th:text="${user.name}">User Name</td>
+        <td th:text="${user.password}">User Password</td>
+        <td th:text="${user.roles}">User Roles</td>
+    </tr>
+    </tbody>
+</table>
 <br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout"/>

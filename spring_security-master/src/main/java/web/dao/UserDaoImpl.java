@@ -19,13 +19,32 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByName(String name) {
         return (User) sessionFactory.getCurrentSession()
-                .createQuery("from User user where user.name=:name")
+                .createQuery("select user from User user where user.name=:name")
                 .setParameter("name", name)
                 .uniqueResult();
     }
 
     @Override
+    public User getUserById(Long id) {
+        return (User) sessionFactory.getCurrentSession()
+                .createQuery("select user from User user where user.id=:id")
+                .setParameter("id", id)
+                .uniqueResult();
+//        return (User) sessionFactory.getCurrentSession().get(String.valueOf(id), User.class);
+    }
+
+    @Override
     public void createUser(User user) {
+
+        Role role = (Role) sessionFactory.getCurrentSession()
+                .createQuery("select role from Role role where role.name=:name")
+                .setParameter("name", "ROLE_USER")
+                .uniqueResult();
+        Set<Role> roleSet = new HashSet<>();
+
+        roleSet.add(role);
+        user.setRoles(roleSet);
+
         sessionFactory.getCurrentSession()
                 .save(user);
     }
@@ -39,12 +58,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(User updatedUser) {
-        User userToBeUpdate = getUserByName(updatedUser.getName());
+    public void updateUser(String name, User updatedUser) {
+        User userToBeUpdate = getUserByName(name);
+        Set<Role> roleSet = new HashSet<>();
 
         userToBeUpdate.setName(updatedUser.getName());
         userToBeUpdate.setPassword(updatedUser.getPassword());
-        userToBeUpdate.setRoles(updatedUser.getRoles());
+        for (Role role : updatedUser.getRoles()) {
+            roleSet.add((Role) sessionFactory.getCurrentSession()
+                    .createQuery("select role from Role role where role.name=:name")
+                    .setParameter("name", role.getName())
+                    .uniqueResult());
+        }
+        userToBeUpdate.setRoles(roleSet);
 
         sessionFactory.getCurrentSession().update(userToBeUpdate);
     }
@@ -61,7 +87,7 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<Role> readAllRoles() {
         return sessionFactory.getCurrentSession()
-                .createQuery("select distinct name.name from Role role")
+                .createQuery("select distinct role from Role role")
                 .getResultList();
     }
 }

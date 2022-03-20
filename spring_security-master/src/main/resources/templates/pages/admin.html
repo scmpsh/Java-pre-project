@@ -5,42 +5,39 @@
     <title>Admin</title>
 </head>
 <body>
-
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Password</th>
-        <th>Roles</th>
-        <th>Edit</th>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>User Password</th>
+        <th>User Roles</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${user}">
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">User ID</td>
+        <td th:text="${user.name}">User Name</td>
+        <td th:text="${user.password}">User Password</td>
+        <td th:text="${user.roles}">User Roles</td>
         <td>
-            <a th:text="${user.getName()}"></a>
-        </td>
-        <td>
-            <a th:text="${user.getPassword()}"></a>
-        </td>
-        <td>
-            <a th:text="${user.getRoles()}"></a>
-        </td>
-        <td>
-            <a th:href="@{/admin/{name}(name=${user.getName()})}" th:text="Edit"></a>
+            <form th:action="@{'/admin/edit/' + ${user.name}}" th:method="get">
+                <input type="submit" value="Edit User"/>
+            </form>
+            <form th:action="@{'/admin/delete/' + ${user.name}}" th:method="delete">
+                <input type="submit" value="Delete User"/>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
-<br>
 <form th:action="@{/admin/new-user}" th:method="get">
     <input type="submit" value="New user"/>
 </form>
-<br>
 <form th:action="@{/admin/new-role}" th:method="get">
     <input type="submit" value="New role"/>
 </form>
-<br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout"/>
 </form>

@@ -1,13 +1,11 @@
-package com.example.crudbootstrap;
+package web.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudBootstrapApplication {
-
+public class CrudBootstrapApp {
     public static void main(String[] args) {
-        SpringApplication.run(CrudBootstrapApplication.class, args);
+        SpringApplication.run(CrudBootstrapApp.class, args);
     }
-
 }

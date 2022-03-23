@@ -1,9 +1,10 @@
-package com.example.crudbootstrap.service;
+package web.app.service;
 
-import com.example.crudbootstrap.dao.RoleDao;
-import com.example.crudbootstrap.model.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.app.dao.RoleDao;
+import web.app.model.Role;
+
 import java.util.List;
 
 @Service

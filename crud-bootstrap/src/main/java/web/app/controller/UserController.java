@@ -1,13 +1,12 @@
-package com.example.crudbootstrap.controller;
+package web.app.controller;
 
-import com.example.crudbootstrap.model.Role;
-import com.example.crudbootstrap.model.User;
-import com.example.crudbootstrap.service.RoleService;
-import com.example.crudbootstrap.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import web.app.model.Role;
+import web.app.model.User;
+import web.app.service.RoleService;
+import web.app.service.UserService;
 import java.security.Principal;
 
 @Controller
@@ -24,19 +23,19 @@ public class UserController {
 
     @GetMapping("login")
     public String loginPage() {
-        return "pages/login";
+        return "login";
     }
 
-	@GetMapping("user")
-	public String userPage(Principal principal, Model model) {
-		model.addAttribute("user", userService.getUserByName(principal.getName()));
-		return "pages/user";
-	}
+//	@GetMapping("user")
+//	public String userPage(Principal principal, Model model) {
+//		model.addAttribute("user", userService.getUserByName(principal.getName()));
+//		return "admin";
+//	}
 
 	@GetMapping("admin")
 	public String adminPage(Model model) {
 		model.addAttribute("users", userService.readUsers());
-		return "pages/admin";
+		return "admin";
 	}
 
 	@GetMapping("admin/new-user")

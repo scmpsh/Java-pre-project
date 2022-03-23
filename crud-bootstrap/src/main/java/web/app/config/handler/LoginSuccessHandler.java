@@ -1,4 +1,4 @@
-package com.example.crudbootstrap.config.handler;
+package web.app.config.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

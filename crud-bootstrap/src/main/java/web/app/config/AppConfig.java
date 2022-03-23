@@ -1,4 +1,4 @@
-package com.example.crudbootstrap.config;
+package web.app.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,8 +11,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import web.model.Role;
-import web.model.User;
+import web.app.model.Role;
+import web.app.model.User;
 
 import javax.sql.DataSource;
 import java.util.Properties;

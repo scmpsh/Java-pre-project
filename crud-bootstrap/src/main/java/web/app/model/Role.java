@@ -1,4 +1,4 @@
-package com.example.crudbootstrap.model;
+package web.app.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

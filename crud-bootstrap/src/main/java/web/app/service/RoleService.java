@@ -1,6 +1,7 @@
-package com.example.crudbootstrap.service;
+package web.app.service;
 
-import com.example.crudbootstrap.model.Role;
+
+import web.app.model.Role;
 
 import java.util.List;
 

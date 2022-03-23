@@ -1,12 +1,12 @@
-package com.example.crudbootstrap.dao;
+package web.app.dao;
 
-import com.example.crudbootstrap.model.Role;
-import com.example.crudbootstrap.model.User;
+import web.app.model.Role;
+import web.app.model.User;
 
 import java.util.List;
 
 public interface UserDao {
-    User getUserByName(String name);
+    User getUserByEmail(String name);
 
     User getUserById(Long id);
 

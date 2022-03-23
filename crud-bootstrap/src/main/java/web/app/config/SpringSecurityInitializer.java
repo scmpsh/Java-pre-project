@@ -1,4 +1,4 @@
-package com.example.crudbootstrap.config;
+package web.app.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

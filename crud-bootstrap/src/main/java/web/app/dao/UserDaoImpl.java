@@ -1,9 +1,9 @@
-package com.example.crudbootstrap.dao;
+package web.app.dao;
 
-import com.example.crudbootstrap.model.Role;
-import com.example.crudbootstrap.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import web.app.model.Role;
+import web.app.model.User;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,10 +19,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String name) {
+    public User getUserByEmail(String name) {
         return (User) sessionFactory.getCurrentSession()
-                .createQuery("select user from User user where user.name=:name")
-                .setParameter("name", name)
+                .createQuery("select user from User user where user.email=:email")
+                .setParameter("email", name)
                 .uniqueResult();
     }
 
@@ -61,10 +61,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(String name, User updatedUser) {
-        User userToBeUpdate = getUserByName(name);
+        User userToBeUpdate = getUserByEmail(name);
         Set<Role> roleSet = new HashSet<>();
 
-        userToBeUpdate.setName(updatedUser.getName());
+        userToBeUpdate.setEmail(updatedUser.getEmail());
         userToBeUpdate.setPassword(updatedUser.getPassword());
         for (Role role : updatedUser.getRoles()) {
             roleSet.add((Role) sessionFactory.getCurrentSession()
@@ -79,7 +79,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(String name) {
-        sessionFactory.getCurrentSession().createQuery("delete User user where user.name=:name")
+        sessionFactory.getCurrentSession().createQuery("delete User user where user.email=:name")
                 .setParameter("name", name)
                 .executeUpdate();
 //        sessionFactory.getCurrentSession().delete(String.valueOf(id), User.class);

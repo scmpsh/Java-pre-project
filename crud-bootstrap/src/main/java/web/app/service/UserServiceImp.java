@@ -1,12 +1,12 @@
-package com.example.crudbootstrap.service;
+package web.app.service;
 
-import com.example.crudbootstrap.dao.UserDao;
-import com.example.crudbootstrap.model.Role;
-import com.example.crudbootstrap.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.app.dao.UserDao;
+import web.app.model.Role;
+import web.app.model.User;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserByName(String name) {
-        return userDao.getUserByName(name);
+        return userDao.getUserByEmail(name);
     }
 
     @Override
@@ -57,6 +57,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDao.getUserByName(username);
+        return userDao.getUserByEmail(username);
     }
 }

@@ -1,6 +1,7 @@
-package com.example.crudbootstrap.dao;
+package web.app.dao;
 
-import com.example.crudbootstrap.model.Role;
+
+import web.app.model.Role;
 
 import java.util.List;
 

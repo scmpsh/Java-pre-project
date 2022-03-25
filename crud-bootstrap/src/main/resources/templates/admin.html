@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,8 +16,9 @@
 </head>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand text-white my-2 my-sm-0">
-            <span th:text="user"></span>
+        <a class="navbar-brand text-white my-2 my-sm-0" th:object="${user}">
+            <span th:text="*{email}" style="font-weight: bold"></span>
+            <span th:text="'with roles: ' + *{roles}"></span>
         </a>
         <form class="form-inline">
             <a class="text-white-50 my-2 my-sm-0" href="/logout">Logout</a>
@@ -26,13 +28,13 @@
 <body style="background-color: #f8f9fa">
 <div class="container-fluid">
     <div class="row justify-content-start">
-        <div class="col-md-2 bg-white pt-4">
-            <nav class="nav flex-column nav-pills" id="v-pills-tab" style="height: 670px;">
-                <a class="nav-link nav-fill active" data-toggle="pill" href="#v-pills-admin">Admin</a>
-                <a class="nav-link nav-fill" data-toggle="pill" href="#v-pills-user">User</a>
+        <div class="col-2 bg-white mt-3 p-0">
+            <nav class="nav flex-column nav-pills" id="v-pills-tab" style="height: 700px;">
+                <a class="nav-item nav-link nav-fill active" data-toggle="pill" href="#v-pills-admin">Admin</a>
+                <a class="nav-item nav-link nav-fill" data-toggle="pill" href="#v-pills-user">User</a>
             </nav>
         </div>
-        <div class="col-9">
+        <div class="col-10 pl-0 pr-0">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
@@ -109,45 +111,48 @@
                                                                 <div class="col-md-7">
                                                                     <!-- Content here -->
                                                                     <div class="modal-body justify-content-center text-center">
-                                                                        <form>
+                                                                        <form th:object="${user}">
                                                                             <p class="font-weight-bold m-0">ID</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="idModal"
-                                                                                   placeholder="ID" readonly>
+                                                                                   th:field="*{id}" readonly>
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">First
                                                                                 Name</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="firstNameModal"
-                                                                                   placeholder="First Name">
+                                                                                   th:field="*{firstName}">
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Last
                                                                                 Name</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="lastNameModal"
-                                                                                   placeholder="Last Name">
+                                                                                   th:field="*{lastName}">
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Age</p>
-                                                                            <input type="text" class="form-control"
-                                                                                   id="AgeModal"
-                                                                                   placeholder="Age">
+                                                                            <input type="number" class="form-control"
+                                                                                   id="editAge"
+                                                                                   th:field="*{age}">
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Email</p>
                                                                             <input type="text" class="form-control"
-                                                                                   id="emailModal"
-                                                                                   placeholder="Email">
+                                                                                   id="editEmail"
+                                                                                   th:field="*{email}">
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Password</p>
                                                                             <input type="text" class="form-control"
-                                                                                   id="passwordModal"
-                                                                                   placeholder="Password">
+                                                                                   id="editPassword"
+                                                                                   th:field="*{password}">
                                                                             <br>
                                                                             <div class="form-group">
                                                                                 <p class="font-weight-bold m-0">Role</p>
                                                                                 <select multiple class="form-control"
-                                                                                        id="exampleFormControlSelectModal">
-                                                                                    <option>ADMIN</option>
-                                                                                    <option>USER</option>
+                                                                                        id="editRoles"
+                                                                                        required>
+                                                                                    <th:block th:each="role : ${roles}">
+                                                                                        <option th:value="${role.name}"
+                                                                                                th:text="${role.name}"></option>
+                                                                                    </th:block>
                                                                                 </select>
                                                                             </div>
                                                                         </form>
@@ -183,41 +188,44 @@
                                                                 <div class="col-md-7">
                                                                     <!-- Content here -->
                                                                     <div class="modal-body justify-content-center text-center">
-                                                                        <form>
+                                                                        <form th:object="${user}">
                                                                             <p class="font-weight-bold m-0">ID</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="idModalDelete"
-                                                                                   placeholder="ID" readonly>
+                                                                                   th:field="*{id}" readonly>
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">First
                                                                                 Name</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="firstNameModalDelete"
-                                                                                   placeholder="First Name" readonly>
+                                                                                   th:field="*{firstName}" readonly>
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Last
                                                                                 Name</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="lastNameModalDelete"
-                                                                                   placeholder="Last Name" readonly>
+                                                                                   th:field="*{lastName}" readonly>
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Age</p>
-                                                                            <input type="text" class="form-control"
+                                                                            <input type="number" class="form-control"
                                                                                    id="AgeModalDelete"
-                                                                                   placeholder="Age" readonly>
+                                                                                   th:field="*{age}" readonly>
                                                                             <br>
                                                                             <p class="font-weight-bold m-0">Email</p>
                                                                             <input type="text" class="form-control"
                                                                                    id="emailModalDelete"
-                                                                                   placeholder="Email" readonly>
+                                                                                   th:field="*{email}" readonly>
                                                                             <br>
                                                                             <div class="form-group">
                                                                                 <p class="font-weight-bold m-0">Role</p>
                                                                                 <select multiple class="form-control"
                                                                                         id="exampleFormControlSelectModalDelete"
                                                                                         readonly>
-                                                                                    <option>ADMIN</option>
-                                                                                    <option>USER</option>
+                                                                                    <th:block
+                                                                                            th:each="role : ${user.getRoles()}">
+                                                                                        <option th:value="${role.name}"
+                                                                                                th:text="${role.name}"></option>
+                                                                                    </th:block>
                                                                                 </select>
                                                                             </div>
                                                                         </form>
@@ -259,7 +267,7 @@
                                                                placeholder="Last Name">
                                                         <br>
                                                         <p class="font-weight-bold m-0">Age</p>
-                                                        <input type="text" class="form-control"
+                                                        <input type="number" class="form-control"
                                                                id="Age"
                                                                placeholder="Age">
                                                         <br>
@@ -277,8 +285,10 @@
                                                             <p class="font-weight-bold m-0">Role</p>
                                                             <select multiple class="form-control"
                                                                     id="exampleFormControlSelect">
-                                                                <option>ADMIN</option>
-                                                                <option>USER</option>
+                                                                <th:block th:each="role : ${roles}">
+                                                                    <option th:value="${role.name}"
+                                                                            th:text="${role.name}"></option>
+                                                                </th:block>
                                                             </select>
                                                         </div>
                                                         <button href="/admin/new" type="submit"
@@ -320,11 +330,11 @@
                                             <tbody>
                                             <tr>
                                                 <td th:text="${user.id}">User ID</td>
-                                                <td th:text="${user.fisrtName}">User First Name</td>
+                                                <td th:text="${user.firstName}">User First Name</td>
                                                 <td th:text="${user.lastName}">User Last Name</td>
                                                 <td th:text="${user.age}">User Age</td>
                                                 <td th:text="${user.email}">User Email</td>
-                                                <td th:text="${user.role}">User Role</td>
+                                                <td th:text="${user.roles}">User Role</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -340,10 +350,3 @@
 </div>
 </body>
 </html>
-
-<script>
-    $("#v-pills-tab").on("click", function () {
-        $(".nav li").removeClass("active");
-        $(this).addClass("active");
-    })
-</script>

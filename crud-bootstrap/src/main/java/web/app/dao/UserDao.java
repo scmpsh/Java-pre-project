@@ -6,6 +6,7 @@ import web.app.model.User;
 import java.util.List;
 
 public interface UserDao {
+
     User getUserByEmail(String name);
 
     User getUserById(Long id);

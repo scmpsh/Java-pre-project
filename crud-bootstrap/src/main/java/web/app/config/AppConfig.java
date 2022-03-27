@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
 public class AppConfig {

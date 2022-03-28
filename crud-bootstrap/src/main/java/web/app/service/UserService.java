@@ -17,9 +17,11 @@ public interface UserService extends UserDetailsService {
 
     List<User> readUsers();
 
-    void updateUser(String name, User user);
+    void updateUser(Long id, User user);
 
     void deleteUser(String name);
+
+    void deleteUserById(Long id);
 
     List<Role> readAllRoles();
 }

@@ -6,7 +6,6 @@ import web.app.model.User;
 import java.util.List;
 
 public interface UserDao {
-
     User getUserByEmail(String name);
 
     User getUserById(Long id);
@@ -15,9 +14,11 @@ public interface UserDao {
 
     List<User> readUsers();
 
-    void updateUser(String name, User user);
+    void updateUser(Long id, User user);
 
     void deleteUser(String name);
+
+    void deleteUserById(Long id);
 
     List<Role> readAllRoles();
 }

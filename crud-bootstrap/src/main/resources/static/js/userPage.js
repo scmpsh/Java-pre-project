@@ -1,4 +1,4 @@
-function showTable() {
+function showUser() {
 
     fetch('http://localhost:8080/getAuthorizedUser')
         .then(response => {
@@ -14,14 +14,17 @@ function showTable() {
             + "<td>" + user.firstName + "</td>"
             + "<td>" + user.lastName + "</td>"
             + "<td>" + user.age + "</td>"
-            + "<td>" + user.email + "</td>";
-        for (var i = 0; i < user.roles.length; i++) {
-            table += "<td>" + user.roles[i].name.substring(5) + " " + "</td>";
+            + "<td>" + user.email + "</td>"
+            + "<td>";
+        for (role of user.roles) {
+            table += role.name.substring(5) + " ";
         }
-        table += "</tr>";
+        table += "</td></tr>";
 
         $("#about-user").html(table);
     }).catch(error => {
         console.log(error);
     });
 }
+
+showUser()

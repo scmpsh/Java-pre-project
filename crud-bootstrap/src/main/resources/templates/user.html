@@ -13,20 +13,20 @@
 </head>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand text-white my-2 my-sm-0">
+        <a class="navbar-brand text-white">
             <span id="emailHeader" style="font-weight: bold"></span>
             <span id="rolesHeader"></span>
         </a>
         <form class="form-inline">
-            <a class="text-white-50 my-2 my-sm-0" th:href="@{/logout}">Logout</a>
+            <a class="text-white-50" th:href="@{/logout}">Logout</a>
         </form>
     </nav>
 </header>
 <body style="background-color: #f8f9fa">
 <div class="container-fluid">
     <div class="row justify-content-start">
-        <div class="col-2 bg-white mt-3 p-0">
-            <nav class="nav flex-column nav-pills" id="v-pills-tab" style="height: 700px;">
+        <div class="col-2 bg-white p-0">
+            <nav class="nav flex-column nav-pills pt-4" id="v-pills-tab" style="height: 700px;">
                 <a class="nav-item nav-link nav-fill active" data-toggle="pill" href="#v-pills-user">User</a>
             </nav>
         </div>
@@ -35,8 +35,7 @@
                 <div class="col p-4">
                     <h1>User information-page</h1>
                     <div class="tab-content" id="myTabContentUser">
-                        <div class="tab-pane fade show active" id="homeUser" role="tabpanel"
-                             aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="homeUser" role="tabpanel" aria-labelledby="home-tab">
                             <div class="card">
                                 <div class="card-header font-weight-bold">
                                     About user
@@ -65,8 +64,8 @@
     </div>
 </div>
 
-<script src="/header.js"></script>
-<script src="/aboutUser.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/userPage.js"></script>
 
 </body>
 </html>

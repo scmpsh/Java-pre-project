@@ -1,9 +1,10 @@
 package web.app.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import web.app.model.Role;
 import web.app.model.User;
 import web.app.service.RoleService;
 import web.app.service.UserService;
@@ -27,8 +28,36 @@ public class RestAdminController {
         return ResponseEntity.ok().body(authorizedUser);
     }
 
-    @GetMapping("/allUsers")
+    @GetMapping("/admin/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok().body(userService.readUsers());
+    }
+
+    @GetMapping("/admin/getAllRoles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return ResponseEntity.ok().body(roleService.readAllRole());
+    }
+
+    @GetMapping("/admin/delete/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUserById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/addNewUser")
+    public ResponseEntity<Void> addNewUser(@RequestBody User user) {
+        userService.createUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/edit/{id}")
+    public ResponseEntity<Void> addNewUser(@RequestBody User user, @PathVariable("id") Long id) {
+        userService.updateUser(id, user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(userService.getUserById(id));
     }
 }

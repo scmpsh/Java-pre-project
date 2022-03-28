@@ -37,18 +37,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void createUser(User user) {
-
-        Role role = (Role) sessionFactory.getCurrentSession()
-                .createQuery("select role from Role role where role.name=:name")
-                .setParameter("name", "ROLE_USER")
-                .uniqueResult();
         Set<Role> roleSet = new HashSet<>();
 
-        roleSet.add(role);
+        for (Role role : user.getRoles()) {
+            roleSet.add((Role) sessionFactory.getCurrentSession()
+                    .createQuery("select role from Role role where role.name=:name")
+                    .setParameter("name", role.getName())
+                    .uniqueResult());
+        }
         user.setRoles(roleSet);
-
-        sessionFactory.getCurrentSession()
-                .save(user);
+        sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
@@ -60,19 +58,25 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(String name, User updatedUser) {
-        User userToBeUpdate = getUserByEmail(name);
+    public void updateUser(Long id, User updatedUser) {
+        User userToBeUpdate = getUserById(id);
         Set<Role> roleSet = new HashSet<>();
 
+        userToBeUpdate.setFirstName(updatedUser.getFirstName());
+        userToBeUpdate.setLastName(updatedUser.getLastName());
+        userToBeUpdate.setAge(updatedUser.getAge());
         userToBeUpdate.setEmail(updatedUser.getEmail());
         userToBeUpdate.setPassword(updatedUser.getPassword());
-        for (Role role : updatedUser.getRoles()) {
-            roleSet.add((Role) sessionFactory.getCurrentSession()
-                    .createQuery("select role from Role role where role.name=:name")
-                    .setParameter("name", role.getName())
-                    .uniqueResult());
+
+        if (!updatedUser.getRoles().isEmpty()) {
+            for (Role role : updatedUser.getRoles()) {
+                roleSet.add((Role) sessionFactory.getCurrentSession()
+                        .createQuery("select role from Role role where role.name=:name")
+                        .setParameter("name", role.getName())
+                        .uniqueResult());
+            }
+            userToBeUpdate.setRoles(roleSet);
         }
-        userToBeUpdate.setRoles(roleSet);
 
         sessionFactory.getCurrentSession().update(userToBeUpdate);
     }
@@ -83,6 +87,13 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("name", name)
                 .executeUpdate();
 //        sessionFactory.getCurrentSession().delete(String.valueOf(id), User.class);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        sessionFactory.getCurrentSession().createQuery("delete User user where user.id=:id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override

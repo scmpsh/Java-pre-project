@@ -1,6 +1,7 @@
 package web.app.dao;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.app.model.Role;
 import web.app.model.User;
@@ -12,17 +13,14 @@ import java.util.Set;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private final SessionFactory sessionFactory;
-
-    public UserDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
-    public User getUserByEmail(String name) {
+    public User getUserByEmail(String email) {
         return (User) sessionFactory.getCurrentSession()
                 .createQuery("select user from User user where user.email=:email")
-                .setParameter("email", name)
+                .setParameter("email", email)
                 .uniqueResult();
     }
 

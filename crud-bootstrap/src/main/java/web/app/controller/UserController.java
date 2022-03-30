@@ -1,5 +1,6 @@
 package web.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import web.app.model.User;
@@ -10,11 +11,8 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/user")
     public String getUserPage() {

@@ -30,6 +30,9 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "discord", unique = true)
+    private String discord;
+
     @Column(name = "password")
     private String password;
 
@@ -45,11 +48,12 @@ public class User implements UserDetails {
 
     }
 
-    public User(String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, int age, String email, String discord, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
+        this.discord = discord;
         this.password = password;
         this.roles = roles;
     }
@@ -139,5 +143,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getDiscord() {
+        return discord;
+    }
+
+    public void setDiscord(String discord) {
+        this.discord = discord;
     }
 }

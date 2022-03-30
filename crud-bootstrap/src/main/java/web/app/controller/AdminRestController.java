@@ -1,5 +1,6 @@
 package web.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,15 +13,13 @@ import web.app.service.UserService;
 import java.util.List;
 
 @RestController
-public class RestAdminController {
+public class AdminRestController {
 
-    private final UserService userService;
-    private final RoleService roleService;
+    @Autowired
+    private UserService userService;
 
-    public RestAdminController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/getAuthorizedUser")
     public ResponseEntity<User> getAuthorizedUser() {

@@ -1,6 +1,6 @@
 function showUser() {
 
-    fetch('http://localhost:8080/getAuthorizedUser')
+    fetch('/getAuthorizedUser')
         .then(response => {
             console.log(response)
             if (!response.ok) {

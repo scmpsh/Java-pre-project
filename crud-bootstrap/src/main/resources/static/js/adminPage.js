@@ -9,7 +9,7 @@ function editUser(id) {
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
-        url: "http://localhost:8080/admin/edit/" + id,
+        url: "/admin/edit/" + id,
         data: JSON.stringify({
             'firstName': firstName,
             'lastName': lastName, 'age': age, 'email': email,
@@ -23,7 +23,7 @@ function editUser(id) {
 
 function deleteUser(id) {
     $.ajax({
-        url: 'http://localhost:8080/admin/delete/' + id,
+        url: '/admin/delete/' + id,
         method: 'get',
         async: false,
     })
@@ -34,7 +34,7 @@ function getUserById(id) {
     var user
 
     $.ajax({
-        url: 'http://localhost:8080/getUserById/' + id,
+        url: '/getUserById/' + id,
         method: 'get',
         contentType: 'application/json',
         async: false,
@@ -49,7 +49,7 @@ function getAllUsers() {
     var users
 
     $.ajax({
-        url: 'http://localhost:8080/admin/getAllUsers',
+        url: '/admin/getAllUsers',
         method: 'get',
         contentType: 'application/json',
         async: false,
@@ -64,7 +64,7 @@ function getAllRoles() {
     var roles
 
     $.ajax({
-        url: 'http://localhost:8080/admin/getAllRoles',
+        url: '/admin/getAllRoles',
         method: 'get',
         contentType: 'application/json',
         async: false,
@@ -134,7 +134,7 @@ function addNewUser() {
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
-        url: "http://localhost:8080/admin/addNewUser",
+        url: "/admin/addNewUser",
         data: JSON.stringify({
             'firstName': firstName,
             'lastName': lastName, 'age': age, 'email': email,

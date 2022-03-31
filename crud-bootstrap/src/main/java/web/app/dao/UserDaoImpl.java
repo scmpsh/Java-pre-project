@@ -1,6 +1,5 @@
 package web.app.dao;
 
-import org.hibernate.NonUniqueResultException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +8,6 @@ import web.app.model.User;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Repository

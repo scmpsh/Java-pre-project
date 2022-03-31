@@ -6,7 +6,7 @@ import javax.security.auth.login.LoginException;
 
 public interface DiscordService {
 
-    String BOT_TOKEN = "OTU4MzMwMzYxMzY3MTI2MDY2.YkLwsw.bm79dZZ7I1RGpVLj5t16wi74eEU";
+    String SECRET_BOT_TOKEN = "";
 
     void startBot() throws LoginException;
 

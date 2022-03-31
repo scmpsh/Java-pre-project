@@ -24,4 +24,6 @@ public interface UserService extends UserDetailsService {
     void deleteUserById(Long id);
 
     List<Role> readAllRoles();
+
+    void addDiscordIdToUserByEmail(String email, String id);
 }

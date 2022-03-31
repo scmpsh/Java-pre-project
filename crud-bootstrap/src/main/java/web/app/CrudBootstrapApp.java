@@ -5,8 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import web.app.bot.LoginEventListener;
-import web.app.dao.UserDao;
 import web.app.service.DiscordService;
+import web.app.service.UserService;
 
 @SpringBootApplication
 public class CrudBootstrapApp implements CommandLineRunner {
@@ -15,7 +15,7 @@ public class CrudBootstrapApp implements CommandLineRunner {
     private DiscordService discordService;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(CrudBootstrapApp.class, args);
@@ -25,7 +25,7 @@ public class CrudBootstrapApp implements CommandLineRunner {
     public void run(String... args) throws Exception {
         discordService.startBot();
         discordService.addEventListeners(
-                new LoginEventListener()
+                new LoginEventListener(userService)
         );
     }
 }

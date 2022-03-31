@@ -63,24 +63,8 @@ public class UserServiceImp implements UserService {
         return userDao.getUserByEmail(username);
     }
 
-//    @Override
-//    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
-//        String[] args = event.getMessage().getContentRaw().split(" ");
-//        String username = Objects.requireNonNull(event.getMember()).getUser().getName();
-//        String userId = event.getMember().getUser().getId();
-//
-//        if (args[0].equalsIgnoreCase("!login")) {
-//            if (!event.getMember().getUser().isBot()) {
-//                event.getMessage().reply("Привет, " + username +
-//                        ", пожалуйста напиши email, который ты указал на сайте через команду " +
-//                        "!email \"твой email без кавычек\"").queue();
-//            }
-//        }
-//        if (args[0].equalsIgnoreCase("!email") && !args[1].isEmpty()) {
-//            if (!event.getMember().getUser().isBot()) {
-//                userDao.getUserByEmail(args[1]).setDiscord(userId);
-//                event.getMessage().reply("Ваш ID добавлен в базу").queue();
-//            }
-//        }
-//    }
+    @Override
+    public void addDiscordIdToUserByEmail(String email, String id) {
+        userDao.addDiscordIdToUserByEmail(email, id);
+    }
 }

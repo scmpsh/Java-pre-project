@@ -50,10 +50,41 @@
                                             <th scope="col">Age</th>
                                             <th scope="col">Discord ID</th>
                                             <th scope="col">Role</th>
+                                            <th scope="col">Become an admin</th>
                                         </tr>
                                         </thead>
                                         <tbody id="about-user"></tbody>
                                     </table>
+                                    <!-- Admin request -->
+                                    <div class="modal fade" id="admRequestModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Become an admin</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-7">
+                                                                <!-- Content here -->
+                                                                <div class="modal-body text-center">
+                                                                    <form id="editForm">
+                                                                        <a>Вы точно хотите стать админом?</a>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="footerAdmRequest" class="modal-footer"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

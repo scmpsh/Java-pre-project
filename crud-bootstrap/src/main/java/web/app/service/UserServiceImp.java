@@ -67,4 +67,19 @@ public class UserServiceImp implements UserService {
     public void addDiscordIdToUserByEmail(String email, String id) {
         userDao.addDiscordIdToUserByEmail(email, id);
     }
+
+    @Override
+    public void sendRequestToAdmins(Long userId) {
+        userDao.sendRequestToAdmins(userId);
+    }
+
+    @Override
+    public List<User> getUsersWithRequest() {
+        return userDao.getUsersWithRequest();
+    }
+
+    @Override
+    public void approveAdminRole(Long id) {
+        userDao.approveAdminRole(id);
+    }
 }

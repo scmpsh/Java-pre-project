@@ -23,4 +23,10 @@ public interface UserDao {
     List<Role> readAllRoles();
 
     void addDiscordIdToUserByEmail(String email, String id);
+
+    void sendRequestToAdmins(Long userId);
+
+    List<User> getUsersWithRequest();
+
+    void approveAdminRole(Long id);
 }

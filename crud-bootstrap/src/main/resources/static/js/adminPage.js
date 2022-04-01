@@ -1,3 +1,64 @@
+function getUsersWithRequest() {
+    var users
+
+    $.ajax({
+        url: '/admin/getAllUsersWithRequest/',
+        method: 'get',
+        contentType: 'application/json',
+        async: false,
+        success: function (data) {
+            users = data
+        }
+    })
+    return users
+}
+
+function approveAdminRole(id) {
+    $.ajax({
+        url: '/admin/approveAdminRole?id=' + id,
+        method: 'get',
+        contentType: 'application/json',
+        async: false
+    })
+
+    showAllUsers()
+    showUserOnAdminPage()
+    showRequestsForApproveAdminRole()
+}
+
+function showModalApprove(id) {
+    var footer = "";
+
+    footer += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>' +
+        '<button type="button" class="btn btn-primary" onclick="approveAdminRole(' + id + ')" data-dismiss="modal">' +
+        'YES!</button>'
+    $("#footerApprove").html(footer)
+
+}
+
+function showRequestsForApproveAdminRole() {
+    var users = getUsersWithRequest();
+    var table = "";
+
+    for (user of users) {
+        table += "<tr><td>" + user.id + "</td>"
+            + "<td>" + user.firstName + "</td>"
+            + "<td>" + user.lastName + "</td>"
+            + "<td>" + user.age + "</td>"
+            + "<td>" + user.email + "</td>"
+            + "<td>";
+        for (role of user.roles) {
+            table += role.name.substring(5) + " ";
+        }
+        table += '</td><td><button id="buttonApprove" type="button" class="btn btn-info" data-toggle="modal" ' +
+            'data-target="#approveModal" onclick="showModalApprove(' + user.id + ')">'
+            + 'Approve</button></td>';
+        table += '</tr>';
+    }
+
+    $("#all-users-request").html(table);
+}
+
 function editUser(id) {
     var firstName = $('#firstNameModal').val();
     var lastName = $('#lastNameModal').val();
@@ -145,6 +206,35 @@ function addNewUser() {
     showAllUsers()
 }
 
+function showUserOnAdminPage() {
+
+    fetch('/getAuthorizedUser')
+        .then(response => {
+            console.log(response)
+            if (!response.ok) {
+                throw Error("Error")
+            }
+            return response.json();
+        }).then(user => {
+        console.log(user)
+        var table;
+        table += "<tr><td>" + user.id + "</td>"
+            + "<td>" + user.firstName + "</td>"
+            + "<td>" + user.lastName + "</td>"
+            + "<td>" + user.age + "</td>"
+            + "<td>" + user.email + "</td>"
+            + "<td>";
+        for (role of user.roles) {
+            table += role.name.substring(5) + " ";
+        }
+        table += "</td></tr>";
+
+        $("#about-user-admin").html(table);
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
 function showAllUsers() {
     var users = getAllUsers()
     var table
@@ -180,3 +270,5 @@ function renderRoles() {
 }
 
 showAllUsers()
+showUserOnAdminPage()
+showRequestsForApproveAdminRole()

@@ -5,16 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.app.model.Role;
 import web.app.model.User;
+import web.app.service.DiscordService;
+import web.app.service.RoleService;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private DiscordService discordService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public User getUserByEmail(String email) {
@@ -44,6 +53,7 @@ public class UserDaoImpl implements UserDao {
                     .uniqueResult());
         }
         user.setRoles(roleSet);
+        user.setRequest(false);
         sessionFactory.getCurrentSession().save(user);
     }
 
@@ -65,7 +75,8 @@ public class UserDaoImpl implements UserDao {
         userToBeUpdate.setAge(updatedUser.getAge());
         userToBeUpdate.setEmail(updatedUser.getEmail());
         userToBeUpdate.setPassword(updatedUser.getPassword());
-        userToBeUpdate.setDiscord(updatedUser.getDiscord());
+//        userToBeUpdate.setDiscord(updatedUser.getDiscord());
+        userToBeUpdate.setRequest(updatedUser.isRequest());
 
         if (!updatedUser.getRoles().isEmpty()) {
             for (Role role : updatedUser.getRoles()) {
@@ -108,6 +119,39 @@ public class UserDaoImpl implements UserDao {
         User user = getUserByEmail(email);
         user.setDiscord(id);
         updateUser(user.getId(), user);
+    }
+
+    @Override
+    public void sendRequestToAdmins(Long userId) {
+        User userById = getUserById(userId);
+        userById.setRequest(true);
+        updateUser(userId, userById);
+
+        List<String> adminsDiscordId = readUsers().stream()
+                .filter(user -> user.getRoles().stream()
+                        .anyMatch(role -> role.getName().equals("ROLE_ADMIN")))
+                .map(User::getDiscord)
+                .collect(Collectors.toList());
+
+        discordService.sendRequest(adminsDiscordId, userId);
+    }
+
+    @Override
+    public List<User> getUsersWithRequest() {
+        return readUsers().stream().filter(User::isRequest).collect(Collectors.toList());
+    }
+
+    @Override
+    public void approveAdminRole(Long id) {
+        User userById = getUserById(id);
+        Role adminRole = roleService.readAllRole().stream()
+                .filter(role -> role.getName().equals("ROLE_ADMIN"))
+                .findAny()
+                .orElse(null);
+
+        userById.getRoles().add(adminRole);
+        userById.setRequest(false);
+        updateUser(id, userById);
     }
 }
 

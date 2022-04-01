@@ -59,4 +59,14 @@ public class AdminRestController {
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
+
+    @GetMapping("/admin/getAllUsersWithRequest/")
+    public List<User> getUsersWithRequest() {
+        return userService.getUsersWithRequest();
+    }
+
+    @GetMapping("/admin/approveAdminRole")
+    public void approveAdminRole(@RequestParam Long id) {
+        userService.approveAdminRole(id);
+    }
 }

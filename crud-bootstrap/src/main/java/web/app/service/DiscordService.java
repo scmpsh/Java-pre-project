@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DiscordService {
 
-    String SECRET_BOT_TOKEN = "OTU4MzMwMzYxMzY3MTI2MDY2.YkLwsw.QuFyiGXrck6txckGDcBJurDFl9M";
+    String SECRET_BOT_TOKEN = "";
 
     void startBot() throws LoginException;
 
